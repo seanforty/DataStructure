@@ -28,31 +28,36 @@ class queue{
     }
     
     /* 出队 */
-    public function delQueue(){
+    public function delQueue()
+    {
         $this->rear -= 1;
         return array_shift($this->data);
     }
     
     /* 获取队头 */
-    public function getFront(){
+    public function getFront()
+    {
         return $this->data[0];
     }
     
     /* 获取队尾 */
-    public function getRear(){
+    public function getRear()
+    {
         return $this->data[($this->rear)-1];
         //return end($this->data);
     }
     
     /* 判空 */
-    public function fullQueue(){
+    public function fullQueue()
+    {
         if( abs($this->front - $this->rear) >= $this->volume ){
             exit("Error:Queue is full");
         }
     }
     
     /* 判满 */
-    public function emptyQueue(){
+    public function emptyQueue()
+    {
         if( $this->front = $this->rear ){
             exit("Error:Queue is empty");
         }
