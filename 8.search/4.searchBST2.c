@@ -35,11 +35,11 @@ void mallocErr(PNODE p)
 }
 
 //search binary sort tree
-int searchBST(PNODE T,int val,PNODE *f,PNODE *p)
+int searchBST(PNODE T,int val,PNODE f,PNODE *p)
 {
     if(!T)
     {
-        *p = *f;
+        *p = f;
         return FALSE;
     }else if(val == T->data)
     {
@@ -47,25 +47,22 @@ int searchBST(PNODE T,int val,PNODE *f,PNODE *p)
         return TRUE;
     }else if(val < T->data)
     {
-        *f = T;
-        return searchBST(T->lchild,val,f,p);
+        return searchBST(T->lchild,val,T,p);
     }else
     {
-        *f = T;
-        return searchBST(T->rchild,val,f,p);
+        return searchBST(T->rchild,val,T,p);
     }
 }
 
 int insertBST(PNODE *T,int val)
 {
-    PNODE p = NULL,s = NULL,f = NULL;
-    int res = 0;
-    res = searchBST(*T,val,&f,&p);
-    if(!res) //val does not exist in the array.
+    PNODE p,s;
+    if(!searchBST(*T,val,NULL,&p))
     {
         s = (PNODE)malloc(sizeof(NODE));
         mallocErr(s);
         s->data = val;
+        s->lchild = s->rchild = NULL;
 
         if(!p) //p is null
         {
@@ -81,10 +78,9 @@ int insertBST(PNODE *T,int val)
             p->rchild = s;
         }
         return TRUE;
-
-    }else   //val already exists in the array.
+    }else
     {
-        return FALSE;
+         return FALSE;
     }
 }
 
@@ -92,7 +88,12 @@ int main()
 {
     PNODE T = NULL,p = NULL;
     insertBST(&T,100);
+    insertBST(&T,110);
+    insertBST(&T,99);
     insertBST(&T,199);
+    insertBST(&T,10);
+    insertBST(&T,200);
+    insertBST(&T,230);
 
     return 0;
 }
